@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>E-Commerce Portal</title>
+
+<style>
+/* ---------------- GLOBAL STYLES ---------------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+}
+
+header {
+    background: #333;
+    padding: 10px;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* --------------- FORMS ------------------ */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    display: none;
+}
+
+form input, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* --------------- DASHBOARD ------------------ */
+.dashboard {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ----------------- HEADER ----------------- -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="#" onclick="showSection('products')">Products</a></li>
+            <li><a href="#" onclick="showSection('about')">About Us</a></li>
+            <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+            <li><a href="#" onclick="showSection('loginForm')">Login</a></li>
+            <li><a href="#" onclick="showSection('regForm')">Register</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ------------------ HOME ------------------- -->
+<section id="home" class="container">
+    <h1>Welcome to E-Shop</h1>
+    <p>Your one-stop online shopping portal.</p>
+</section>
+
+<!-- ------------------ PRODUCTS ------------------- -->
+<section id="products" class="container" style="display:none;">
+    <h2>Product Items</h2>
+    <p>Product listings appear here...</p>
+</section>
+
+<!-- ------------------ ABOUT ------------------- -->
+<section id="about" class="container" style="display:none;">
+    <h2>About Us</h2>
+    <p>We are an online e-commerce platform providing quality products.</p>
+</section>
+
+<!-- ------------------ CONTACT ------------------- -->
+<section id="contact" class="container" style="display:none;">
+    <h2>Contact Us</h2>
+    <p>Email: support@eshop.com</p>
+    <p>Phone: +1 800 123 456</p>
+</section>
+
+<!-- ------------------- LOGIN FORM ------------------- -->
+<form id="loginForm">
+    <h3>Login</h3>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="return validateLogin()">Login</button>
+</form>
+
+<!-- ------------------- REGISTER FORM ------------------- -->
+<form id="regForm">
+    <h3>Register</h3>
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <button onclick="return validateRegister()">Register</button>
+</form>
+
+<!-- ------------------ DASHBOARD ------------------- -->
+<section id="dashboard" class="dashboard container">
+    <div class="card">
+        <h3>Orders List</h3>
+        <ul>
+            <li>Order #101 - Delivered</li>
+            <li>Order #102 - In Transit</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Wishlist</h3>
+        <ul>
+            <li>iPhone 15</li>
+            <li>Samsung Smart TV</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Comments & Reviews</h3>
+        <ul>
+            <li>Excellent product! ⭐⭐⭐⭐⭐</li>
+            <li>Fast shipping! ⭐⭐⭐⭐</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Customer Care</h3>
+        <p>Email: help@eshop.com</p>
+        <p>Phone: +1 999 888 777</p>
+    </div>
+
+    <div class="card">
+        <h3>Report Issue</h3>
+        <button>Report a Problem</button>
+    </div>
+</section>
+
+<!-- ------------------ JAVASCRIPT ------------------- -->
+<script>
+// Show/Hide sections
+function showSection(id) {
+    let sections = document.querySelectorAll("section, form");
+    sections.forEach(s => s.style.display = "none");
+    document.getElementById(id).style.display = "block";
+}
+
+// ------------ VALIDATION ------------ //
+function validateRegister() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let pass = document.getElementById("password").value;
+    let cpass = document.getElementById("confirmPassword").value;
+
+    if (name === "") return alert("Enter name"), false;
+    if (!email.includes("@")) return alert("Enter valid email"), false;
+    if (pass.length < 6) return alert("Password must be at least 6 characters"), false;
+    if (pass !== cpass) return alert("Passwords do not match"), false;
+
+    alert("Registration successful");
+    showSection('loginForm');
+    return false;
+}
+
+function validateLogin() {
+    let email = document.getElementById("loginEmail").value;
+    let pass = document.getElementById("loginPassword").value;
+
+    if (!email.includes("@")) return alert("Invalid email"), false;
+    if (pass === "") return alert("Enter password"), false;
+
+    alert("Login successful");
+    showSection('dashboard');
+    return false;
+}
+</script>
+
+</body>
+</html>
